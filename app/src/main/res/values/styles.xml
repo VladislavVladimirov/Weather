@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <style name="Theme.Weather.BackgroundImageStyle">
+        <item name="android:windowBackground">@drawable/background_main</item>
+    </style>
+    <style name="ProgressBarTheme" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@android:color/white</item>
+    </style>
+</resources>

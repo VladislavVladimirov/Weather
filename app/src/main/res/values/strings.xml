@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="city_name">Saint-Petersburg</string>
+    <string name="icon_weather_condition_description">Icon of weather condition</string>
+    <string name="humidity">Humidity</string>
+    <string name="windspeed">Wind</string>
+    <string name="pressure">Pressure</string>
+    <string name="error_loading"> An error occurred while loading data. Please check your internet connection or try again later.</string>
+    <string name="retry_loading">Retry</string>
+</resources>

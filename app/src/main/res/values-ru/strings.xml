@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="city_name">Санкт-Петербург</string>
+    <string name="icon_weather_condition_description">Иконка состояния погоды</string>
+    <string name="humidity">Влажность</string>
+    <string name="windspeed">Ветер</string>
+    <string name="pressure">Давление</string>
+    <string name="error_loading">Произошла ошибка при загрузке данных. Пожалуйста, проверьте соединение с интернетом или повторите попытку позже.</string>
+    <string name="retry_loading">Повторить</string>
+</resources>
