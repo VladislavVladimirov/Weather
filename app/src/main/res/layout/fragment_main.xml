@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/common_spacing"
         android:text="@string/error_loading"
+        android:textColor="@color/white"
         android:textAlignment="center"
         android:layout_marginVertical="@dimen/error_group_margin"
         app:layout_constraintBottom_toTopOf="@+id/retryButton"
@@ -25,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/retry_loading"
-        android:backgroundTint="@color/grey_800"
+        style="?attr/materialButtonOutlinedStyle"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +43,9 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/posts_swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginVertical="@dimen/top_margin"
+        >
 
     <TextView
         android:id="@+id/cityNameHeader"
@@ -52,7 +55,6 @@
         android:text="@string/city_name"
         android:textColor="@color/white"
         android:textSize="@dimen/header_text_size"
-        android:layout_marginTop="@dimen/top_margin"
         app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/currentTime"

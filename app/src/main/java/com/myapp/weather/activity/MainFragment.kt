@@ -21,14 +21,14 @@ class MainFragment : Fragment() {
     ): View {
         val binding = FragmentMainBinding.inflate(layoutInflater)
         val swipeRefresher = binding.postsSwipeRefresh
-        val dateFormat = SimpleDateFormat("HH:mm ")
-        binding.currentTime.text = dateFormat.format(Date())
+
         viewModel.loadWeather()
         viewModel.data.observe(viewLifecycleOwner) { state ->
             binding.apply {
-                binding.progress.isVisible = state.loading
-                binding.errorGroup.isVisible = state.error
-
+                progress.isVisible = state.loading
+                errorGroup.isVisible = state.error
+                val dateFormat = SimpleDateFormat("HH:mm ")
+                currentTime.text = dateFormat.format(Date())
             }
             binding.retryButton.setOnClickListener {
                 viewModel.loadWeather()
