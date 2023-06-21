@@ -21,11 +21,11 @@ class MainFragment : Fragment() {
     ): View {
         val binding = FragmentMainBinding.inflate(layoutInflater)
         val swipeRefresher = binding.postsSwipeRefresh
+        val dateFormat = SimpleDateFormat("HH:mm ")
+        binding.currentTime.text = dateFormat.format(Date())
         viewModel.loadWeather()
         viewModel.data.observe(viewLifecycleOwner) { state ->
             binding.apply {
-                val dateFormat = SimpleDateFormat("HH:mm ")
-                currentTime.text = dateFormat.format(Date())
                 binding.progress.isVisible = state.loading
                 binding.errorGroup.isVisible = state.error
 

@@ -13,10 +13,10 @@ import java.util.concurrent.TimeUnit
 
 
 
-private const val BASE_URL = "${BuildConfig.BASE_URL}/weather?q=Saint Petersburg&appid=d9e6fe2ca9bd114df14262b014663852&lang=ru"
+private const val BASE_URL = "${BuildConfig.BASE_URL}"
 
 interface WeatherApiService {
-    @GET
+    @GET("weather?q=Saint%20Petersburg&appid=d9e6fe2ca9bd114df14262b014663852&lang=ru")
     fun getAll(): Call<WeatherForecast>
 }
 
