@@ -28,7 +28,8 @@ class MainFragment : Fragment() {
                 progress.isVisible = state.loading
                 errorGroup.isVisible = state.error
                 val dateFormat = SimpleDateFormat("HH:mm ")
-                currentTime.text = dateFormat.format(Date())
+                currentTime.text = dateFormat.format(Date()).toString()
+                currentTemperature.text = state.weatherForecast?.main?.temp.toString()
             }
             binding.retryButton.setOnClickListener {
                 viewModel.loadWeather()

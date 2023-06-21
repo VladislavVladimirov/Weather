@@ -1,17 +1,17 @@
 package com.myapp.weather.dto
 
 data class WeatherForecast(
-    val coord: Coordinates?,
-    val weather: Weather?,
-    val base: String,
-    val main: WeatherData?,
-    val visibility: Int,
-    val wind: Wind?,
-    val clouds: Clouds?,
-    val dt: Long,
-    val sys: Sys?,
-    val timezone: Int,
-    val id: Int,
-    val name: String,
-    val cod: Int
+    val coord: Coord? = Coord(),
+    val weather: ArrayList<Weather> = arrayListOf(),
+    val base: String? = null,
+    val main: Main? = Main(),
+    val visibility: Int? = null,
+    val wind: Wind? = Wind(),
+    val clouds: Clouds? = Clouds(),
+    val dt: Int? = null,
+    val sys: Sys? = Sys(),
+    val timezone: Int? = null,
+    val id: Int? = null,
+    val name: String? = null,
+    val cod: Int? = null
 )

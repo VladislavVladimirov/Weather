@@ -1,5 +1,5 @@
 package com.myapp.weather.dto
 
 data class Clouds (
-    val all: Int
+    val all: Int? = null
         )
