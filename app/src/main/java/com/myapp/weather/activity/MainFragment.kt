@@ -7,10 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import com.myapp.weather.utils.DataFormatter
 import com.myapp.weather.databinding.FragmentMainBinding
+import com.myapp.weather.utils.DataFormatter.formatTemp
+import com.myapp.weather.utils.DataFormatter.getDescription
+import com.myapp.weather.utils.DataFormatter.getHumidity
+import com.myapp.weather.utils.DataFormatter.getPressure
+import com.myapp.weather.utils.DataFormatter.getWind
 import com.myapp.weather.viewmodel.ViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
+
+
 
 
 class MainFragment : Fragment() {
@@ -20,16 +26,28 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentMainBinding.inflate(layoutInflater)
-        val swipeRefresher = binding.postsSwipeRefresh
+        val swipeRefresher = binding.weatherSwipeRefresh
 
         viewModel.loadWeather()
         viewModel.data.observe(viewLifecycleOwner) { state ->
             binding.apply {
                 progress.isVisible = state.loading
                 errorGroup.isVisible = state.error
-                val dateFormat = SimpleDateFormat("HH:mm ")
-                currentTime.text = dateFormat.format(Date())
-                currentTemperature.text = state.weatherForecast?.main?.temp.toString()
+                currentTime.text = DataFormatter.getDate()
+                currentTemperature.text = formatTemp(state.weatherForecast?.main?.temp)
+                weatherDescription.text = getDescription(state)
+                currentHumidity.text = getHumidity(state)
+                currentPressure.text = getPressure(state)
+                windSpeed.text = getWind(state)
+//                val iconId = getIconId(state)
+//                if (iconId != null) {
+//                    Glide.with(weatherStateIcon)
+//                        .load("http://openweathermap.org/img/w/$iconId.png")
+//                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
+//                        .timeout(10_000)
+//                        .into(weatherStateIcon)
+//                }
+
             }
             binding.retryButton.setOnClickListener {
                 viewModel.loadWeather()
