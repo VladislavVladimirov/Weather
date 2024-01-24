@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
         viewModel.loadWeather()
         viewModel.data.observe(viewLifecycleOwner) { state ->
             binding.apply {
-                progress.isVisible = state.loading
+
                 errorGroup.isVisible = state.error
                 currentTime.text = DataFormatter.getDate()
                 currentTemperature.text = formatTemp(state.weatherForecast?.main?.temp)
@@ -61,4 +61,5 @@ class MainFragment : Fragment() {
         }
         return binding.root
     }
+
 }
