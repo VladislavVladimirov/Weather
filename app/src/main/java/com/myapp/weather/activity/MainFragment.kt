@@ -8,6 +8,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.myapp.weather.R
 import com.myapp.weather.databinding.FragmentMainBinding
 import com.myapp.weather.utils.DataFormatter.formatTemp
 import com.myapp.weather.utils.DataFormatter.getDescription
@@ -45,7 +46,7 @@ class MainFragment : Fragment() {
                 currentPressure.text = getPressure(state)
                 windSpeed.text = getWind(state)
                 feelsLike.text = buildString {
-                    append("Ощущается как ")
+                    append(getString(R.string.feels_like))
                     append(state.weatherForecast?.main?.feelsLike)
                 }
                 currentVisibility.text = getVisibility(state)

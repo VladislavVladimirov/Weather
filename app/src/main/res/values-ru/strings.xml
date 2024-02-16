@@ -12,5 +12,7 @@
     <string name="weather_icon">Иконка погоды</string>
     <string name="feels_like">"Ощущается как "</string>
     <string name="mbar">" мбар"</string>
+    <string name="sunrise">Восход</string>
+    <string name="sunset">Закат</string>
 
 </resources>
