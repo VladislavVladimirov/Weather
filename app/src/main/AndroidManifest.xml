@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,9 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Weather"
         android:usesCleartextTraffic="${usesCleartextTraffic}"
-        tools:targetApi="31">
+        tools:targetApi="34">
         <activity
-            android:name="com.myapp.weather.activity.AppActivity"
+            android:name=".activity.AppActivity"
             android:exported="true"
             android:configChanges="orientation"
             android:screenOrientation="portrait"

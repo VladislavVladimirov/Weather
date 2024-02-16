@@ -7,4 +7,8 @@
     <string name="pressure">Pressure</string>
     <string name="error_loading"> An error occurred while loading data. Please check your internet connection or try again later.</string>
     <string name="retry_loading">Retry</string>
+    <string name="visibility">Visibility</string>
+    <string name="weather_icon">Weather icon</string>
+    <string name="feels_like">"Feels like "</string>
+    <string name="mbar">" mbar"</string>
 </resources>

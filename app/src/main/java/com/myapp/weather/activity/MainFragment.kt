@@ -1,26 +1,30 @@
 package com.myapp.weather.activity
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.myapp.weather.utils.DataFormatter
 import com.myapp.weather.databinding.FragmentMainBinding
 import com.myapp.weather.utils.DataFormatter.formatTemp
 import com.myapp.weather.utils.DataFormatter.getDescription
 import com.myapp.weather.utils.DataFormatter.getHumidity
 import com.myapp.weather.utils.DataFormatter.getPressure
+import com.myapp.weather.utils.DataFormatter.getTime
+import com.myapp.weather.utils.DataFormatter.getVisibility
 import com.myapp.weather.utils.DataFormatter.getWind
 import com.myapp.weather.viewmodel.ViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
-
-
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class MainFragment : Fragment() {
-    val viewModel: ViewModel by activityViewModels()
+    private val viewModel: ViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,22 +35,22 @@ class MainFragment : Fragment() {
         viewModel.loadWeather()
         viewModel.data.observe(viewLifecycleOwner) { state ->
             binding.apply {
-
                 errorGroup.isVisible = state.error
-                currentTime.text = DataFormatter.getDate()
+                allInfo.isGone = state.error || state.loading
+                progress.isVisible = state.loading
+
                 currentTemperature.text = formatTemp(state.weatherForecast?.main?.temp)
                 weatherDescription.text = getDescription(state)
                 currentHumidity.text = getHumidity(state)
                 currentPressure.text = getPressure(state)
                 windSpeed.text = getWind(state)
-//                val iconId = getIconId(state)
-//                if (iconId != null) {
-//                    Glide.with(weatherStateIcon)
-//                        .load("http://openweathermap.org/img/w/$iconId.png")
-//                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
-//                        .timeout(10_000)
-//                        .into(weatherStateIcon)
-//                }
+                feelsLike.text = buildString {
+                    append("Ощущается как ")
+                    append(state.weatherForecast?.main?.feelsLike)
+                }
+                currentVisibility.text = getVisibility(state)
+                currentSunrise.text = getTime(state.weatherForecast?.sys?.sunrise, "HH:mm")
+                currentSunset.text = getTime(state.weatherForecast?.sys?.sunset, "HH:mm")
 
             }
             binding.retryButton.setOnClickListener {

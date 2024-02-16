@@ -1,5 +1,6 @@
 package com.myapp.weather.dto
 
+
 data class WeatherForecast(
     val coord: Coord? = Coord(),
     val weather: ArrayList<Weather> = arrayListOf(),

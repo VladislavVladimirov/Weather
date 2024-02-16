@@ -1,168 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/weather_swipe_refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="visible">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.myapp.weather.activity.MainFragment">
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/retryTitle"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/error_group_margin"
-            android:layout_marginBottom="@dimen/common_spacing"
-            android:text="@string/error_loading"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/retryButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/retryButton"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/error_group_margin"
-            android:text="@string/retry_loading"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/retryTitle" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/all_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="cityName,currentTemperature,weatherDescription,feels_like, details" />
 
+            <TextView
+                android:id="@+id/cityName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="100dp"
+                android:text="Санкт-Петербург"
+                android:textColor="@color/white"
+                android:textSize="@dimen/header_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/errorGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="retryTitle,retryButton" />
+            <TextView
+                android:id="@+id/currentTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/common_spacing"
+                android:textColor="@color/white"
+                android:textSize="@dimen/temperature_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cityName"
+                tools:text="+9" />
 
+            <TextView
+                android:id="@+id/weatherDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/common_spacing"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/currentTemperature"
+                app:layout_constraintStart_toStartOf="@id/currentTemperature"
+                app:layout_constraintTop_toBottomOf="@id/currentTemperature"
+                tools:text="Ясно" />
 
-        <TextView
-            android:id="@+id/cityNameHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/top_margin"
-            android:text="@string/city_name"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/header_text_size"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/feels_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_spacing"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/weatherDescription"
+                app:layout_constraintStart_toStartOf="@id/weatherDescription"
+                app:layout_constraintTop_toBottomOf="@id/weatherDescription" />
 
-        <TextView
-            android:id="@+id/currentTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/header_text_size"
-            app:layout_constraintTop_toBottomOf="@id/cityNameHeader" />
+            <TextView
+                android:id="@+id/retryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/error_group_margin"
+                android:layout_marginBottom="@dimen/common_spacing"
+                android:text="@string/error_loading"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/retryButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <TextView
-            android:id="@+id/currentTemperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/common_spacing"
-            android:textColor="@color/white"
-            android:textSize="@dimen/temperature_text_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-
-            />
-
-        <TextView
-            android:id="@+id/weatherDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/common_spacing"
-            android:textColor="@color/white"
-            android:textSize="@dimen/header_text_size"
-            app:layout_constraintBottom_toTopOf="@id/currentTemperature"
-            app:layout_constraintStart_toStartOf="@id/currentTemperature"
-           />
-
-<!--        <ImageView-->
-<!--            android:id="@+id/weatherStateIcon"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="@dimen/common_spacing"-->
-<!--            android:contentDescription="@string/icon_weather_condition_description"-->
-<!--            android:src="@drawable/cloudy_day_1"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/weatherDescription"-->
-<!--            -->
-<!--            />-->
-
-        <TextView
-            android:id="@+id/humidity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/common_spacing"
-            android:text="@string/humidity"
-            android:textColor="@color/white"
-            android:textSize="@dimen/secondary_info_text_size"
-            app:layout_constraintStart_toEndOf="@id/currentTemperature"
-            app:layout_constraintTop_toTopOf="@id/currentTemperature" />
-
-        <TextView
-            android:id="@+id/currentHumidity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/common_spacing"
-            android:textColor="@color/white"
-            android:textSize="@dimen/secondary_info_text_size"
-            app:layout_constraintStart_toEndOf="@id/humidity"
-            app:layout_constraintTop_toTopOf="@id/currentTemperature" />
-
-        <TextView
-            android:id="@+id/pressure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/common_spacing"
-            android:text="@string/pressure"
-            android:textColor="@color/white"
-            android:textSize="@dimen/secondary_info_text_size"
-            app:layout_constraintStart_toEndOf="@id/currentTemperature"
-            app:layout_constraintTop_toBottomOf="@id/humidity" />
-
-        <TextView
-            android:id="@+id/currentPressure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/common_spacing"
-            android:textColor="@color/white"
-            android:textSize="@dimen/secondary_info_text_size"
-            app:layout_constraintStart_toEndOf="@id/pressure"
-            app:layout_constraintTop_toBottomOf="@id/currentHumidity" />
-
-        <TextView
-            android:id="@+id/wind"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/common_spacing"
-            android:text="@string/windspeed"
-            android:textColor="@color/white"
-            android:textSize="@dimen/secondary_info_text_size"
-            app:layout_constraintStart_toEndOf="@id/currentTemperature"
-            app:layout_constraintTop_toBottomOf="@id/pressure" />
-
-        <TextView
-            android:id="@+id/windSpeed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/common_spacing"
-            android:textColor="@color/white"
-            android:textSize="@dimen/secondary_info_text_size"
-            app:layout_constraintStart_toEndOf="@id/wind"
-            app:layout_constraintTop_toBottomOf="@id/currentPressure" />
+            <Button
+                android:id="@+id/retryButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/error_group_margin"
+                android:text="@string/retry_loading"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/retryTitle" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/errorGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="retryTitle,retryButton" />
+
+            <GridLayout
+                android:id="@+id/details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_spacing"
+                android:columnCount="2"
+                android:rowCount="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/feels_like"
+                >
+
+                <LinearLayout
+                    android:id="@+id/humidity_card"
+                    android:layout_width="@dimen/card_width"
+                    android:layout_margin="@dimen/half_margin_common"
+                    android:background="@drawable/background_rounded_semitransparent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/humidity_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/common_spacing"
+                        android:contentDescription="@string/humidity"
+                        android:src="@drawable/ic_humidity_24" />
+
+                    <TextView
+                        android:id="@+id/humidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/common_spacing"
+                        android:text="@string/humidity"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size" />
+
+                    <TextView
+                        android:id="@+id/currentHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/common_spacing"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size"
+                        android:textStyle="bold"
+                        tools:text="81%" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pressure_card"
+                    android:layout_width="@dimen/card_width"
+                    android:layout_margin="@dimen/half_margin_common"
+                    android:background="@drawable/background_rounded_semitransparent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/pressure_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/common_spacing"
+                        android:contentDescription="@string/humidity"
+                        android:src="@drawable/ic_pressure_24" />
+
+                    <TextView
+                        android:id="@+id/pressure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/common_spacing"
+                        android:text="@string/pressure"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size" />
+
+                    <TextView
+                        android:id="@+id/currentPressure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/common_spacing"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size"
+                        android:textStyle="bold"
+                        tools:text="979 мбар" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/wind_card"
+                    android:layout_width="@dimen/card_width"
+                    android:layout_margin="@dimen/half_margin_common"
+                    android:background="@drawable/background_rounded_semitransparent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/wind_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/common_spacing"
+                        android:contentDescription="@string/humidity"
+                        android:src="@drawable/ic_wind_24" />
+
+                    <TextView
+                        android:id="@+id/wind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/common_spacing"
+                        android:text="@string/windspeed"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size"
+                        app:layout_constraintStart_toEndOf="@id/pressure" />
+
+                    <TextView
+                        android:id="@+id/windSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/common_spacing"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size"
+                        android:textStyle="bold"
+                        tools:text="5 м/с ЮЗ" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/visibility_card"
+                    android:layout_width="@dimen/card_width"
+                    android:layout_margin="@dimen/half_margin_common"
+                    android:background="@drawable/background_rounded_semitransparent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/visibility_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/common_spacing"
+                        android:contentDescription="@string/humidity"
+                        android:src="@drawable/ic_visibility_24" />
+
+                    <TextView
+                        android:id="@+id/visibility"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/common_spacing"
+                        android:text="@string/visibility"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size"
+                        app:layout_constraintStart_toEndOf="@id/pressure" />
+
+                    <TextView
+                        android:id="@+id/currentVisibility"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/common_spacing"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size"
+                        android:textStyle="bold"
+                        tools:text="10.0 км" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sunrise_card"
+                    android:layout_width="@dimen/card_width"
+                    android:layout_margin="@dimen/half_margin_common"
+                    android:background="@drawable/background_rounded_semitransparent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/common_spacing"
+                        android:contentDescription="Закат"
+                        android:src="@drawable/ic_sunrise_24" />
+
+                    <TextView
+                        android:id="@+id/sunrise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/common_spacing"
+                        android:text="Восход"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size" />
+
+                    <TextView
+                        android:id="@+id/currentSunrise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/common_spacing"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size"
+                        android:textStyle="bold"
+                        tools:text="07:15" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sunset_card"
+                    android:layout_width="@dimen/card_width"
+                    android:layout_margin="@dimen/half_margin_common"
+                    android:background="@drawable/background_rounded_semitransparent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/common_spacing"
+                        android:contentDescription="Закат"
+                        android:src="@drawable/ic_sunset_24" />
+
+                    <TextView
+                        android:id="@+id/sunset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/common_spacing"
+                        android:text="Закат"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size" />
+
+                    <TextView
+                        android:id="@+id/currentSunset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/common_spacing"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/secondary_info_text_size"
+                        android:textStyle="bold"
+                        tools:text="21:25" />
+
+                </LinearLayout>
+            </GridLayout>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateDrawable="@drawable/progress_ring"
+                android:indeterminateOnly="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

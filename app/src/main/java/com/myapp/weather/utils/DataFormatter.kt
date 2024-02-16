@@ -1,23 +1,33 @@
 package com.myapp.weather.utils
 
 
+import android.widget.ImageView
+import com.myapp.weather.R
 import com.myapp.weather.model.WeatherModel
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.time.LocalTime
+import java.util.Calendar
+import kotlin.math.roundToInt
 
 
 object DataFormatter {
 
-    fun getDate(): String {
-        val dateFormat = SimpleDateFormat("HH:mm ")
-        return dateFormat.format(Date())
+    fun getTime(input: Int?, dateformat: String): String {
+        val formatter = SimpleDateFormat(dateformat)
+        val calendar = Calendar.getInstance()
+        if (input != null) {
+            calendar.timeInMillis = input.toLong()
+        }
+        return formatter.format(calendar.time)
     }
+
 
     fun formatTemp(input: Double?): String? {
         return if (input != null) {
-            (Math.round(input - 273.15)).toString() + "°"
+            ((input - 273.15).roundToInt()).toString() + "°"
         } else null
     }
+
 
     fun getDescription(input: WeatherModel?): String? {
         return if (input != null) {
@@ -48,11 +58,35 @@ object DataFormatter {
         } else null
     }
 
+
     fun getIconId(input: WeatherModel?): String? {
         return if (input != null) {
             val weather = input.weatherForecast?.weather?.first { it.id in 200..804 }
             return weather?.icon
         } else null
+    }
+
+    fun setWeatherIcon(input: ImageView, weather: String) {
+        when (weather) {
+            "Ясно" -> {
+                val time = LocalTime.now().hour
+                if (time > 6 && time < 21) {
+                    input.setImageResource(R.drawable.day)
+                } else {
+                    input.setImageResource(R.drawable.night)
+                }
+            }
+        }
+
+    }
+
+    fun getVisibility(input: WeatherModel?): String? {
+        return if (input != null) {
+            return (input.weatherForecast?.visibility)?.div(1000).toString() + " км"
+        } else {
+            null
+        }
+
     }
 
 
