@@ -20,20 +20,65 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:constraint_referenced_ids="cityName,currentTemperature,weatherDescription,feels_like, details"
+                app:constraint_referenced_ids="cityName,currentTemperature,weatherDescription,feels_like,highestTemperature,highestTemperatureIcon,lowestTemperature,lowestTemperatureIcon, details"
                 tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/cityName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="100dp"
+                android:layout_marginTop="80dp"
                 android:text="Санкт-Петербург"
                 android:textColor="@color/white"
                 android:textSize="@dimen/header_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/lowestTemperatureIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/common_spacing"
+                android:contentDescription="@string/weather_icon"
+                android:src="@drawable/ic_lowest_temperature_24"
+                app:layout_constraintEnd_toStartOf="@id/lowestTemperature"
+                app:layout_constraintStart_toStartOf="@id/currentTemperature"
+                app:layout_constraintTop_toBottomOf="@id/currentTemperature" />
+
+            <TextView
+                android:id="@+id/lowestTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/lowestTemperatureIcon"
+                app:layout_constraintStart_toEndOf="@id/lowestTemperatureIcon"
+                app:layout_constraintTop_toTopOf="@id/lowestTemperatureIcon"
+                tools:text="-9" />
+
+            <ImageView
+                android:id="@+id/highestTemperatureIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_spacing"
+                android:contentDescription="@string/weather_icon"
+                android:src="@drawable/ic_highest_temperature_24"
+                app:layout_constraintBottom_toBottomOf="@id/lowestTemperature"
+                app:layout_constraintStart_toEndOf="@id/lowestTemperature"
+                app:layout_constraintTop_toTopOf="@id/lowestTemperature" />
+
+            <TextView
+                android:id="@+id/highestTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/highestTemperatureIcon"
+                app:layout_constraintEnd_toEndOf="@id/currentTemperature"
+                app:layout_constraintStart_toEndOf="@id/highestTemperatureIcon"
+                app:layout_constraintTop_toTopOf="@id/highestTemperatureIcon"
+                tools:text="+16" />
 
             <TextView
                 android:id="@+id/currentTemperature"
@@ -47,17 +92,19 @@
                 app:layout_constraintTop_toBottomOf="@id/cityName"
                 tools:text="+9" />
 
+
             <TextView
                 android:id="@+id/weatherDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/common_spacing"
+                android:layout_margin="@dimen/common_spacing"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@id/currentTemperature"
                 app:layout_constraintStart_toStartOf="@id/currentTemperature"
-                app:layout_constraintTop_toBottomOf="@id/currentTemperature"
+                app:layout_constraintTop_toBottomOf="@id/highestTemperatureIcon"
                 tools:text="Ясно" />
+
 
             <TextView
                 android:id="@+id/feels_like"
@@ -65,9 +112,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_spacing"
                 android:textColor="@color/white"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/weatherDescription"
                 app:layout_constraintStart_toStartOf="@id/weatherDescription"
-                app:layout_constraintTop_toBottomOf="@id/weatherDescription" />
+                app:layout_constraintTop_toBottomOf="@id/weatherDescription"
+                tools:text="@string/feels_like" />
 
             <TextView
                 android:id="@+id/retryTitle"
@@ -109,12 +158,14 @@
                 android:id="@+id/details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_spacing"
+                android:layout_marginTop="16dp"
                 android:columnCount="2"
                 android:rowCount="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/feels_like">
+                app:layout_constraintTop_toBottomOf="@id/feels_like"
+                app:layout_constraintBottom_toBottomOf="parent"
+                >
 
                 <LinearLayout
                     android:id="@+id/humidity_card"

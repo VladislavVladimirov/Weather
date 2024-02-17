@@ -1,9 +1,11 @@
 package com.myapp.weather.activity
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -26,6 +28,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainFragment : Fragment() {
     private val viewModel: ViewModel by activityViewModels()
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,18 +44,19 @@ class MainFragment : Fragment() {
                 progress.isVisible = state.loading
 
                 currentTemperature.text = formatTemp(state.weatherForecast?.main?.temp)
+                lowestTemperature.text = formatTemp(state.weatherForecast?.main?.temp_min)
+                highestTemperature.text = formatTemp(state.weatherForecast?.main?.temp_max)
                 weatherDescription.text = getDescription(state)
                 currentHumidity.text = getHumidity(state)
                 currentPressure.text = getPressure(state)
                 windSpeed.text = getWind(state)
                 feelsLike.text = buildString {
                     append(getString(R.string.feels_like))
-                    append(state.weatherForecast?.main?.feelsLike)
+                    append(formatTemp(state.weatherForecast?.main?.feels_like))
                 }
                 currentVisibility.text = getVisibility(state)
-                currentSunrise.text = getTime(state.weatherForecast?.sys?.sunrise, "HH:mm")
-                currentSunset.text = getTime(state.weatherForecast?.sys?.sunset, "HH:mm")
-
+                currentSunrise.text = getTime(state.weatherForecast?.sys?.sunrise)
+                currentSunset.text = getTime(state.weatherForecast?.sys?.sunset)
             }
             binding.retryButton.setOnClickListener {
                 viewModel.loadWeather()
