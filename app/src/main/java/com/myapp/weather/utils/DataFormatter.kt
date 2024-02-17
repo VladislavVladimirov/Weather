@@ -6,19 +6,19 @@ import com.myapp.weather.R
 import com.myapp.weather.model.WeatherModel
 import java.text.SimpleDateFormat
 import java.time.LocalTime
-import java.util.Calendar
+import java.util.Date
 import kotlin.math.roundToInt
 
 
 object DataFormatter {
 
-    fun getTime(input: Int?, dateformat: String): String {
-        val formatter = SimpleDateFormat(dateformat)
-        val calendar = Calendar.getInstance()
-        if (input != null) {
-            calendar.timeInMillis = input.toLong()
-        }
-        return formatter.format(calendar.time)
+
+    fun getTime(input: Int?): String? {
+        return if (input != null) {
+            val formatter = SimpleDateFormat("HH:mm")
+                formatter.format(Date((input * 1000L)))
+        } else null
+
     }
 
 
@@ -70,11 +70,15 @@ object DataFormatter {
         when (weather) {
             "Ясно" -> {
                 val time = LocalTime.now().hour
-                if (time > 6 && time < 21) {
-                    input.setImageResource(R.drawable.day)
+                if (time in 7..20) {
+                    input.setImageResource(R.drawable.ic_sun_128)
                 } else {
-                    input.setImageResource(R.drawable.night)
+                    input.setImageResource(R.drawable.ic_moon_128)
                 }
+            }
+
+            "Пасмурно" -> {
+                input.setImageResource(R.drawable.ic_cloud_128)
             }
         }
 
