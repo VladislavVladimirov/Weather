@@ -10,10 +10,12 @@
 - Инъекции зависимостей c Hilt (Dagger)
 - ViewModel
 - Библиотека OkHttp
-- Интерфейс создан с помощью SwipeRefreshLayout, ConstraintLayout, LinearLayout
+- Интерфейс создан с помощью SwipeRefreshLayout, ConstraintLayout, LinearLayout, GridLayout, ScrollView
 
  Приложение показывает погоду в Санкт-Петербурге, а именно:
 - Текущую температуру
+- Температура воздуха по ощущениям
+- Максимальная и минимальная температура за день
 - Описание погоды
 - Влажность
 - Давление
