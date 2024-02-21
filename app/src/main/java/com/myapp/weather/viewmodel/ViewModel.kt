@@ -26,8 +26,9 @@ class ViewModel @Inject constructor(
     fun loadWeather() = viewModelScope.launch {
         try {
             _data.value = WeatherModel(loading = true)
-            val input = repository.getAll()
-            _data.value = WeatherModel(weatherForecast = input)
+            val dailyForecast = repository.getDailyForecast()
+            val forecast5Days = repository.getForecast5Days()
+            _data.value = WeatherModel(weatherForecastDaily = dailyForecast, weatherForecast5Days = forecast5Days)
         } catch (e: Exception) {
             _data.value = WeatherModel(error = true)
         }

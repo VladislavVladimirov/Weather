@@ -1,4 +1,4 @@
-package com.myapp.weather.dto
+package com.myapp.weather.dto.daily
 
 data class Coord(
     val lon: Double? = null,

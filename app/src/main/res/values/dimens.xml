@@ -8,4 +8,7 @@
     <dimen name="error_group_margin">32dp</dimen>
     <dimen name="half_margin_common">8dp</dimen>
     <dimen name="card_width">180dp</dimen>
+    <dimen name="day_of_week_text_width">120dp</dimen>
+    <dimen name="high_low_temp_width">32dp</dimen>
+    <dimen name="weather_icon_margin_horizontal">30dp</dimen>
 </resources>

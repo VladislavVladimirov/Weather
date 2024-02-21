@@ -1,7 +1,7 @@
-package com.myapp.weather.dto
+package com.myapp.weather.dto.daily
 
 
-data class WeatherForecast(
+data class WeatherForecastDaily(
     val coord: Coord? = Coord(),
     val weather: ArrayList<Weather> = arrayListOf(),
     val base: String? = null,
