@@ -5,7 +5,7 @@
     <string name="humidity">Humidity</string>
     <string name="windspeed">Wind</string>
     <string name="pressure">Pressure</string>
-    <string name="error_loading"> An error occurred while loading data. Please check your internet connection or try again later.</string>
+    <string name="error_loading"> An error occurred while loading data. Try again</string>
     <string name="retry_loading">Retry</string>
     <string name="visibility">Visibility</string>
     <string name="weather_icon">Weather icon</string>
@@ -13,5 +13,7 @@
     <string name="mbar">" mbar"</string>
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
+    <string name="city_name_hint">Enter city name</string>
+    <string name="ok">OK</string>
 
 </resources>

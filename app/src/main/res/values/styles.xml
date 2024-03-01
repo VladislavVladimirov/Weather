@@ -7,4 +7,11 @@
     <style name="ProgressBarTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@android:color/white</item>
     </style>
+
+    <style name="Theme.App.EditTextCity" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textSelectHandleLeft">@drawable/text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/text_select_handle</item>
+        <item name="colorControlActivated">@color/black</item>
+    </style>
 </resources>

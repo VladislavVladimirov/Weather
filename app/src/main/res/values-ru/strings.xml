@@ -6,7 +6,7 @@
     <string name="humidity">Влажность</string>
     <string name="windspeed">Ветер</string>
     <string name="pressure">Давление</string>
-    <string name="error_loading">Произошла ошибка при загрузке данных. Пожалуйста, проверьте соединение с интернетом или повторите попытку позже.</string>
+    <string name="error_loading">Произошла ошибка при загрузке данных. Попробуйте еще раз</string>
     <string name="retry_loading">Повторить</string>
     <string name="visibility">Видимость</string>
     <string name="weather_icon">Иконка погоды</string>
@@ -14,5 +14,7 @@
     <string name="mbar">" мбар"</string>
     <string name="sunrise">Восход</string>
     <string name="sunset">Закат</string>
+    <string name="city_name_hint">Введите название города</string>
+    <string name="ok">Ок</string>
 
 </resources>

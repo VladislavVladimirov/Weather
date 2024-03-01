@@ -22,22 +22,45 @@ object DataFormatter {
         } else null
 
     }
+
     fun getDayOfWeek(input: String?): String? {
         return if (input != null) {
             val date = LocalDate.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
             when (date.dayOfWeek.toString()) {
-                "MONDAY" -> {return "Понедельник"}
-                "TUESDAY" -> {return "Вторник"}
-                "WEDNESDAY" -> {return "Среда"}
-                "THURSDAY" -> {return "Четверг"}
-                "FRIDAY" -> {return "Пятница"}
-                "SATURDAY" -> {return "Суббота"}
-                "SUNDAY" -> {return "Воскресенье"}
-                else -> {return null}
+                "MONDAY" -> {
+                    return "Понедельник"
+                }
+
+                "TUESDAY" -> {
+                    return "Вторник"
+                }
+
+                "WEDNESDAY" -> {
+                    return "Среда"
+                }
+
+                "THURSDAY" -> {
+                    return "Четверг"
+                }
+
+                "FRIDAY" -> {
+                    return "Пятница"
+                }
+
+                "SATURDAY" -> {
+                    return "Суббота"
+                }
+
+                "SUNDAY" -> {
+                    return "Воскресенье"
+                }
+
+                else -> {
+                    return null
+                }
             }
         } else null
-        }
-
+    }
 
 
     fun formatTemp(input: Double?): String? {
@@ -100,6 +123,24 @@ object DataFormatter {
             }
 
             "облачно с прояснениями" -> {
+                val time = LocalTime.now().hour
+                if (time in 7..20) {
+                    input.setImageResource(R.drawable.ic_sun_with_clouds_32)
+                } else {
+                    input.setImageResource(R.drawable.ic_moon_and_clouds_32)
+                }
+            }
+
+            "небольшая облачность" -> {
+                val time = LocalTime.now().hour
+                if (time in 7..20) {
+                    input.setImageResource(R.drawable.ic_sun_with_clouds_32)
+                } else {
+                    input.setImageResource(R.drawable.ic_moon_and_clouds_32)
+                }
+            }
+
+            "переменная облачность" -> {
                 val time = LocalTime.now().hour
                 if (time in 7..20) {
                     input.setImageResource(R.drawable.ic_sun_with_clouds_32)

@@ -29,11 +29,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:clickable="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/header_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/cityNameInput"
+                style="@style/Theme.App.EditTextCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/common_spacing"
+                android:layout_marginTop="64dp"
+                android:background="@drawable/background_rounded_semitransparent"
+                android:hint="@string/city_name_hint"
+                android:inputType="text"
+                android:padding="@dimen/common_spacing"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white_semitransparent"
+                android:textColorHint="@color/white_semitransparent_40"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/cityName"
+                app:layout_constraintStart_toStartOf="@id/cityName"
+                app:layout_constraintTop_toBottomOf="@id/cityName"
+                android:autofillHints="" />
+
 
             <ImageView
                 android:id="@+id/highestTemperatureIcon"
@@ -118,41 +142,6 @@
                 app:layout_constraintStart_toStartOf="@id/currentTemperature"
                 tools:text="@string/feels_like" />
 
-            <TextView
-                android:id="@+id/retryTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/error_group_margin"
-                android:layout_marginBottom="@dimen/common_spacing"
-                android:text="@string/error_loading"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toTopOf="@+id/retryButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
-
-            <Button
-                android:id="@+id/retryButton"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/error_group_margin"
-                android:text="@string/retry_loading"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/retryTitle" />
-
-
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/errorGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:constraint_referenced_ids="retryTitle,retryButton" />
 
             <GridLayout
                 android:id="@+id/details"
@@ -162,10 +151,10 @@
                 android:background="@drawable/background_rounded_semitransparent"
                 android:columnCount="2"
                 android:rowCount="3"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/forecast5Days"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/forecast5Days">
 
                 <LinearLayout
                     android:id="@+id/humidity_card"
