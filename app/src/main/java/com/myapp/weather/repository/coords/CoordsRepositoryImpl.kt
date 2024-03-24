@@ -12,7 +12,7 @@ class CoordsRepositoryImpl @Inject constructor(
     context: Context
 ) : CoordsRepository {
     private val gson = Gson()
-    private val prefs = context.getSharedPreferences("repo", Context.MODE_PRIVATE)
+    private val prefs = context.getSharedPreferences("repo1", Context.MODE_PRIVATE)
     private val type = TypeToken.getParameterized(String::class.java).type
 
     private val keyLat = "lat"

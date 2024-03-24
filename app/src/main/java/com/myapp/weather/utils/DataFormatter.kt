@@ -3,21 +3,27 @@ package com.myapp.weather.utils
 
 import android.widget.ImageView
 import com.myapp.weather.R
-import com.myapp.weather.model.WeatherModel
+import com.myapp.weather.dto.daily.WeatherForecastDaily
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
+import java.util.TimeZone
 import kotlin.math.roundToInt
 
 
 object DataFormatter {
+    private fun createTimeZoneFromOffset(offset: Int): TimeZone {
+        val offsetHours = offset / 3600
+        return TimeZone.getTimeZone("GMT${if (offset >= 0) "+" else ""}$offsetHours:00")
+    }
 
-
-    fun getTime(input: Int?): String? {
-        return if (input != null) {
+    fun getTime(input: Int?, offset: Int?): String? {
+        return if (input != null && offset != null) {
+            val timeZone = createTimeZoneFromOffset(offset)
             val formatter = SimpleDateFormat("HH:mm")
+            formatter.timeZone = timeZone
             formatter.format(Date((input * 1000L)))
         } else null
 
@@ -70,40 +76,40 @@ object DataFormatter {
     }
 
 
-    fun getDescription(input: WeatherModel?): String? {
+    fun getDescription(input: WeatherForecastDaily?): String? {
         return if (input != null) {
-            val weather = input.weatherForecastDaily?.weather?.first { it.id in 200..804 }
-            return weather?.description?.replaceFirstChar(Char::titlecase)
+            val weather = input.weather.first { it.id in 200..804 }
+            return weather.description?.replaceFirstChar(Char::titlecase)
         } else null
     }
 
-    fun getHumidity(input: WeatherModel?): String? {
+    fun getHumidity(input: WeatherForecastDaily?): String? {
         return if (input != null) {
-            return input.weatherForecastDaily?.main?.humidity.toString() + "%"
+            return input.main?.humidity.toString() + "%"
         } else null
     }
 
-    fun getPressure(input: WeatherModel?): String? {
+    fun getPressure(input: WeatherForecastDaily?): String? {
         return if (input != null) {
-            return input.weatherForecastDaily?.main?.pressure.toString() + " мбар"
+            return input.main?.pressure.toString() + " мбар"
         } else null
     }
 
-    fun getWind(input: WeatherModel?): String? {
+    fun getWind(input: WeatherForecastDaily?): String? {
         val directions = arrayOf("С", "CВ", "В", "ЮВ", "Ю", "ЮЗ", "З", "CЗ")
-        val degreesInput = input?.weatherForecastDaily?.wind?.deg
+        val degreesInput = input?.wind?.deg
         var degrees = degreesInput?.times(8)?.div(360)
         degrees = degrees?.plus(8)?.rem(8)
         return if ((input != null) && (degrees != null)) {
-            return input.weatherForecastDaily?.wind?.speed.toString() + " м/с" + " ${directions[degrees]}"
+            return input.wind?.speed.toString() + " м/с" + " ${directions[degrees]}"
         } else null
     }
 
 
-    fun getIconId(input: WeatherModel?): String? {
+    fun getIconId(input: WeatherForecastDaily?): String? {
         return if (input != null) {
-            val weather = input.weatherForecastDaily?.weather?.first { it.id in 200..804 }
-            return weather?.icon
+            val weather = input.weather.first { it.id in 200..804 }
+            return weather.icon
         } else null
     }
 
@@ -153,16 +159,24 @@ object DataFormatter {
                 input.setImageResource(R.drawable.ic_little_snow_32)
             }
 
+            "снег" -> {
+                input.setImageResource(R.drawable.ic_little_snow_32)
+            }
+
             "небольшой дождь" -> {
+                input.setImageResource(R.drawable.ic_little_rain_32)
+            }
+
+            "дождь" -> {
                 input.setImageResource(R.drawable.ic_little_rain_32)
             }
         }
 
     }
 
-    fun getVisibility(input: WeatherModel?): String? {
-        return if (input != null) {
-            return (input.weatherForecastDaily?.visibility)?.div(1000).toString() + " км"
+    fun getVisibility(input: WeatherForecastDaily?): String? {
+        return if (input?.visibility != null) {
+            (input.visibility / 1000.0).toString() + " км"
         } else {
             null
         }

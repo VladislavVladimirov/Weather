@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.myapp.weather.model.WeatherModel
+import com.myapp.weather.model.WeatherModelGPS
+import com.myapp.weather.model.WeatherModelName
+import com.myapp.weather.repository.cityName.CityNameRepository
 import com.myapp.weather.repository.coords.CoordsRepository
 import com.myapp.weather.repository.weatherForecast.WeatherForecastRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,47 +16,43 @@ import javax.inject.Inject
 @HiltViewModel
 class ViewModel @Inject constructor(
     private val weatherForecastRepository: WeatherForecastRepository,
-    private val coordsRepository: CoordsRepository
+    private val coordsRepository: CoordsRepository,
+    private val cityNameRepository: CityNameRepository
 ) : ViewModel() {
 
-    private val _data = MutableLiveData(WeatherModel())
-    val data: LiveData<WeatherModel>
-        get() = _data
-
-    init {
-        val lat = getLat()
-        val lon = getLon()
-        if (lat != 0.0 && lon != 0.0) {
-            loadWeatherByGps(lat, lon)
-        }
-    }
+    private val _dataGps = MutableLiveData(WeatherModelGPS())
+    val dataGPS: LiveData<WeatherModelGPS>
+        get() = _dataGps
+    private val _dataName = MutableLiveData(WeatherModelName())
+    val dataName: LiveData<WeatherModelName>
+        get() = _dataName
 
     fun loadWeatherByName(name: String?) = viewModelScope.launch {
         try {
-            _data.value = WeatherModel(loading = true)
+            _dataName.value = WeatherModelName(loading = true)
             val dailyForecast = name?.let { weatherForecastRepository.getDailyForecastByName(it) }
             val forecast5Days = name?.let { weatherForecastRepository.getForecast5DaysByName(it) }
-            _data.value = WeatherModel(
+            _dataName.value = WeatherModelName(
                 weatherForecastDaily = dailyForecast,
                 weatherForecast5Days = forecast5Days
             )
         } catch (e: Exception) {
-            _data.value = WeatherModel(error = true)
-
+            _dataName.value = WeatherModelName(error = true)
+            e.printStackTrace()
         }
     }
 
     fun loadWeatherByGps(lat: Double, lon: Double) = viewModelScope.launch {
         try {
-            _data.value = WeatherModel(loading = true)
+            _dataGps.value = WeatherModelGPS(loading = true)
             val dailyForecast = weatherForecastRepository.getDailyForecastByGPS(lat, lon)
             val forecast5Days = weatherForecastRepository.getForecast5DaysByGPS(lat, lon)
-            _data.value = WeatherModel(
+            _dataGps.value = WeatherModelGPS(
                 weatherForecastDaily = dailyForecast,
                 weatherForecast5Days = forecast5Days
             )
         } catch (e: Exception) {
-            _data.value = WeatherModel(error = true)
+            _dataGps.value = WeatherModelGPS(error = true)
             e.printStackTrace()
         }
     }
@@ -77,6 +75,14 @@ class ViewModel @Inject constructor(
 
     fun saveLat(lat: Double) {
         coordsRepository.saveLat(lat.toString())
+    }
+
+    fun getCityName(): String {
+        return cityNameRepository.getName()
+    }
+
+    fun saveCityName(name: String) {
+        cityNameRepository.saveName(name)
     }
 }
 

@@ -24,7 +24,6 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Weather.BackgroundImageStyle">
-            <nav-graph android:value="@navigation/nav_main" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,6 +1,8 @@
 package com.myapp.weather.repository
 
 
+import com.myapp.weather.repository.cityName.CityNameRepository
+import com.myapp.weather.repository.cityName.CityNameRepositoryImpl
 import com.myapp.weather.repository.coords.CoordsRepository
 import com.myapp.weather.repository.coords.CoordsRepositoryImpl
 import com.myapp.weather.repository.weatherForecast.WeatherForecastRepository
@@ -21,4 +23,8 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun bindsCoordsRepository(impl: CoordsRepositoryImpl): CoordsRepository
+
+    @Singleton
+    @Binds
+    fun bindsCityNameRepository(impl: CityNameRepositoryImpl): CityNameRepository
 }
